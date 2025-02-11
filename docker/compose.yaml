@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+
+  registrationApi:
+    image: registrationapi:stable
+    ports:
+      - 12346:8080
+    restart: on-failure
+    environment:
+      - "DB_USER=username"
+      - "DB_PASSWORD=passoword"
+      - "DB_IP=db-ip"
+      - "DB_PORT=3306"
+      - "DB_NAME=5GMETA"
+      - DATAFLOW_VEHICLE_MINUTES_LIMIT=1
+      - DATAFLOW_INFRASTRUCTURE_MINUTES_LIMIT=5

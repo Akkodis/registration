@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql
+
+  registrationApi:
+    image: registrationapi:stable
+    ports:
+      - 12346:8080
+    restart: on-failure
+    depends_on:
+      - db
+    environment:
+      - "DB_USER=root"
+      - "DB_PASSWORD=example"
+      - "DB_IP=db"
+      - "DB_PORT=3306"
+      - "DB_NAME=5GMETA"
+      - DATAFLOW_VEHICLE_MINUTES_LIMIT=1
+      - DATAFLOW_INFRASTRUCTURE_MINUTES_LIMIT=5
